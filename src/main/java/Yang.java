@@ -41,12 +41,26 @@ public class Yang {
                 System.out.println("Alright, I've marked this task as not done yet");
                 System.out.println(" " + t);
                 System.out.println("_______________________________________");
-            } else {
-                Task t = new Task(input);
+            } else if (input.startsWith("todo")) {
+                String desc = input.substring(5).trim();
+                Task t = new Todo(desc);
                 tasks.add(t);
-                System.out.println("_______________________________________");
-                System.out.println("added: " + input);
-                System.out.println("_______________________________________");
+                System.out.println("Perfect. I've added this task:\n  " + t);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("deadline")) {
+                String[] parts = input.substring(9).split("/by", 2);
+                Task t = new Deadline(parts[0].trim(), parts[1].trim());
+                tasks.add(t);
+                System.out.println("Perfect. I've added this task:\n  " + t);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else if (input.startsWith("event")) {
+                String[] parts = input.substring(6).split("/from|/to");
+                Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+                tasks.add(t);
+                System.out.println("Perfect. I've added this task:\n  " + t);
+                System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            } else {
+               System.out.println("Unknown command" + input);
             }
         }
 
