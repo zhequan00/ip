@@ -11,6 +11,7 @@ public class Yang {
 
         while (true) {
             String input = sc.nextLine().trim();
+            System.out.println(input);
             try {
                 if (input.equals("bye")) {
                     exitBot();
