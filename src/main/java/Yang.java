@@ -11,7 +11,6 @@ public class Yang {
 
         while (true) {
             String input = sc.nextLine().trim();
-            System.out.println(input);
             try {
                 if (input.equals("bye")) {
                     exitBot();
@@ -22,6 +21,8 @@ public class Yang {
                     handleMark(input);
                 } else if (input.startsWith("unmark")) {
                     handleUnmark(input);
+                } else if (input.startsWith("delete")) {
+                  handleDelete(input);
                 } else if (input.startsWith("todo")) {
                     handleTodo(input);
                 } else if (input.startsWith("deadline")) {
@@ -40,13 +41,13 @@ public class Yang {
     }
 
     private static void greetUser() {
-        System.out.println("Hello! I'm Yang, your favourite chatbot assistant!");
+        System.out.println("Hello! I'm Yang, your favourite bot assistant!");
         System.out.println("What can I help you with?");
         System.out.println("___________________________________________________");
     }
 
     private static void exitBot() {
-        System.out.println("Bye bye!! Hope to see you again soon!");
+        System.out.println("Bye bye! Thank you for using Yang assistant!");
     }
 
     private static void printList() {
@@ -76,6 +77,15 @@ public class Yang {
         t.markAsUndone();
         System.out.println("Alright, I've marked this task as not done yet:");
         System.out.println("  " + t);
+    }
+
+    private static void handleDelete(String input) throws YangException {
+        int idx = Integer.parseInt(input.substring(6).trim()) - 1;
+
+        Task removed = tasks.remove(idx);
+        System.out.println("Understood, I've removed this task");
+        System.out.println("  " + removed);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list");
     }
 
     private static void handleTodo(String input) throws YangException {
