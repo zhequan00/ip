@@ -6,6 +6,15 @@ import yang.task.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parses raw user input strings into executable commands.
+ * <p>
+ * The {@code Parser} interprets command keywords such as {@code todo}, {@code deadline},
+ * {@code event}, {@code mark}, {@code unmark}, {@code delete}, and {@code list},
+ * then returns a corresponding {@link CommandResult}. Parsing errors or malformed
+ * arguments are signaled via {@link YangException}.
+ * </p>
+ */
 public class Parser {
 
     public static CommandResult apply(String input, TaskList tasks) throws YangException {

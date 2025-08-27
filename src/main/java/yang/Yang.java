@@ -5,11 +5,20 @@ import yang.task.TaskList;
 import yang.ui.Ui;
 import yang.parser.Parser;
 
+/**
+ * The Yang class represents the main entry point for the task manager bot.
+ * It processes user input, manages tasks, and handles command execution.
+ */
 public class Yang {
     private final Storage storage = Storage.defaultStorage();
     private final Ui ui = new Ui();
     private TaskList tasks = new TaskList();
 
+/**
+ * Starts the interactive loop (REPL) for the Yang bot.
+ * <ul>
+ *   <li>Attempts to load previously saved tasks from {@link Storage}.</li>
+ */
     public void run() {
         try {
             tasks = new TaskList(storage.load());
@@ -39,6 +48,9 @@ public class Yang {
         }
     }
 
+/**
+ * Program entry point. Creates and runs a {@link Yang} instance.
+ */
     public static void main(String[] args) {
         new Yang().run();
     }
