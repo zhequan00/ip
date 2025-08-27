@@ -1,3 +1,5 @@
-T | 0 | return book
 D | 0 | return book | 2019-12-02
-T | 0 | return book
+T | 1 | find books
+T | 1 | borrow book
+T | 0 | 
+D | 0 | return computer | 2025-12-02

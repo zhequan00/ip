@@ -11,7 +11,9 @@ import java.util.List;
 public final class Storage {
     private final Path file;
 
-    public Storage(Path file) { this.file = file; }
+    public Storage(Path file) {
+        this.file = file;
+    }
 
     public static Storage defaultStorage() {
         return new Storage(Paths.get("data", "yang.txt"));
@@ -23,6 +25,7 @@ public final class Storage {
             Files.createFile(file);
             return new ArrayList<>();
         }
+
         List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
         List<Task> out = new ArrayList<>();
         for (String ln : lines) {
