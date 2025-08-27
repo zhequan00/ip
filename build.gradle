@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.yang.Yang")
+    mainClass.set("yang.Yang")
 }
 
 shadowJar {
