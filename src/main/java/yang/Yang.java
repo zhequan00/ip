@@ -59,7 +59,7 @@ public class Yang {
     }
 
     private static void exitBot() {
-        System.out.println("Bye bye! Thank you for using Yang.Yang assistant!");
+        System.out.println("Bye bye! Thank you for using Yang assistant!");
     }
 
     private static void printList() {
@@ -115,26 +115,24 @@ public class Yang {
     }
 
     private static void handleDeadline(String input) throws YangException {
-        String[] parts = input.substring(8).trim().split("/by", 2);
-        if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new YangException("yang.task.Deadline format should be: deadline <task> /by <time>");
-        }
-        Task t = new Deadline(parts[0].trim(), parts[1].trim());
+        String[] parts = input.substring("deadline".length()).trim().split("/by", 2);
+        if (parts.length < 2) throw new YangException("Usage: deadline <desc> /by <yyyy-mm-dd>");
+        String desc = parts[0].trim();
+        java.time.LocalDate by = java.time.LocalDate.parse(parts[1].trim()); // ISO date
+        Task t = new yang.task.Deadline(desc, by);
         tasks.add(t);
-        printTaskAdded(t);
+        System.out.println("Perfect! I've added this task:\n  " + t);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
         persist();
     }
 
     private static void handleEvent(String input) throws YangException {
-        // input format: "event <desc> /at <when>"
         String rest = input.substring("event".length()).trim();
         String[] parts = rest.split("/at", 2);
-        if (parts.length < 2) throw new YangException("Usage: event <desc> /at <when>");
-
+        if (parts.length < 2) throw new YangException("Usage: event <desc> /at <yyyy-mm-dd>");
         String desc = parts[0].trim();
-        String at   = parts[1].trim();
-
-        Task t = new Event(desc, at); // <-- 2-arg ctor
+        java.time.LocalDate at = java.time.LocalDate.parse(parts[1].trim());
+        Task t = new yang.task.Event(desc, at);
         tasks.add(t);
         System.out.println("Perfect! I've added this task:\n  " + t);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
@@ -153,5 +151,4 @@ public class Yang {
             storage.save(tasks);
         } catch (Exception ignored) { }
     }
-
 }
