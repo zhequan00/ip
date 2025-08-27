@@ -1,0 +1,45 @@
+package yang.storage;
+
+import yang.task.Task;
+
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public final class Storage {
+    private final Path file;
+
+    public Storage(Path file) { this.file = file; }
+
+    public static Storage defaultStorage() {
+        return new Storage(Paths.get("data", "yang.txt"));
+    }
+
+    public List<Task> load() throws IOException {
+        if (Files.notExists(file)) {
+            Files.createDirectories(file.getParent());
+            Files.createFile(file);
+            return new ArrayList<>();
+        }
+        List<String> lines = Files.readAllLines(file, StandardCharsets.UTF_8);
+        List<Task> out = new ArrayList<>();
+        for (String ln : lines) {
+            String s = ln.trim();
+            if (!s.isEmpty()) {
+                Task t = Task.fromStorage(s);
+                if (t != null) out.add(t);
+            }
+        }
+        return out;
+    }
+
+    public void save(List<Task> tasks) throws IOException {
+        Files.createDirectories(file.getParent());
+        List<String> lines = new ArrayList<>(tasks.size());
+        for (Task t : tasks) lines.add(t.toStorage());
+        Files.write(file, lines, StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+}
