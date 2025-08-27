@@ -39,6 +39,17 @@ public class Ui {
     public void show(String s) {
         System.out.println(s);
     }
+
+    public void showFound(TaskList tl, String keyword) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < tl.size(); i++) {
+            Task t = tl.get(i);
+            if (t.toString().contains(keyword)) {
+                System.out.println((i + 1) + ". " + t);
+            }
+        }
+    }
+
     public void bye() {
         System.out.println("Bye bye! Hope to see you again soon!");
     }
