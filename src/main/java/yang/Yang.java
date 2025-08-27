@@ -1,11 +1,23 @@
+package yang;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import yang.task.Task;
+import yang.task.Todo;
+import yang.task.Deadline;
+import yang.task.Event;
+import yang.storage.Storage;
 
 public class Yang {
     private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final Storage storage = Storage.defaultStorage();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        try {
+            tasks.clear();
+            tasks.addAll(storage.load());
+        } catch (Exception ignored) {}
 
         greetUser();
 
@@ -41,13 +53,13 @@ public class Yang {
     }
 
     private static void greetUser() {
-        System.out.println("Hello! I'm Yang, your favourite bot assistant!");
+        System.out.println("Hello! I'm Yang.Yang, your favourite bot assistant!");
         System.out.println("What can I help you with?");
         System.out.println("___________________________________________________");
     }
 
     private static void exitBot() {
-        System.out.println("Bye bye! Thank you for using Yang assistant!");
+        System.out.println("Bye bye! Thank you for using Yang.Yang assistant!");
     }
 
     private static void printList() {
@@ -63,9 +75,10 @@ public class Yang {
             throw new YangException("Invalid task number for mark.");
         }
         Task t = tasks.get(idx);
-        t.markAsDone();
+        t.markDone();
         System.out.println("Perfect! This task is now marked as done:");
         System.out.println("  " + t);
+        persist();
     }
 
     private static void handleUnmark(String input) throws YangException {
@@ -74,9 +87,10 @@ public class Yang {
             throw new YangException("Invalid task number for unmark.");
         }
         Task t = tasks.get(idx);
-        t.markAsUndone();
+        t.markUndone();
         System.out.println("Alright, I've marked this task as not done yet:");
         System.out.println("  " + t);
+        persist();
     }
 
     private static void handleDelete(String input) throws YangException {
@@ -86,6 +100,7 @@ public class Yang {
         System.out.println("Understood, I've removed this task");
         System.out.println("  " + removed);
         System.out.println("Now you have " + tasks.size() + " tasks in the list");
+        persist();
     }
 
     private static void handleTodo(String input) throws YangException {
@@ -96,31 +111,47 @@ public class Yang {
         Task t = new Todo(desc);
         tasks.add(t);
         printTaskAdded(t);
+        persist();
     }
 
     private static void handleDeadline(String input) throws YangException {
         String[] parts = input.substring(8).trim().split("/by", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new YangException("Deadline format should be: deadline <task> /by <time>");
+            throw new YangException("yang.task.Deadline format should be: deadline <task> /by <time>");
         }
         Task t = new Deadline(parts[0].trim(), parts[1].trim());
         tasks.add(t);
         printTaskAdded(t);
+        persist();
     }
 
     private static void handleEvent(String input) throws YangException {
-        String[] parts = input.substring(5).trim().split("/from|/to");
-        if (parts.length < 3) {
-            throw new YangException("Event format should be: event <task> /from <time> /to <time>");
-        }
-        Task t = new Event(parts[0].trim(), parts[1].trim(), parts[2].trim());
+        // input format: "event <desc> /at <when>"
+        String rest = input.substring("event".length()).trim();
+        String[] parts = rest.split("/at", 2);
+        if (parts.length < 2) throw new YangException("Usage: event <desc> /at <when>");
+
+        String desc = parts[0].trim();
+        String at   = parts[1].trim();
+
+        Task t = new Event(desc, at); // <-- 2-arg ctor
         tasks.add(t);
-        printTaskAdded(t);
+        System.out.println("Perfect! I've added this task:\n  " + t);
+        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+        persist();
     }
+
 
     private static void printTaskAdded(Task t) {
         System.out.println("Perfect! I've added this task:");
         System.out.println("  " + t);
         System.out.println("Now you have " + tasks.size() + " tasks in the list.");
     }
+
+    private static void persist() {
+        try {
+            storage.save(tasks);
+        } catch (Exception ignored) { }
+    }
+
 }
