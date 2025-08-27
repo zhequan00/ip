@@ -67,10 +67,17 @@ public class Parser {
             Task removed = tasks.remove(idx);
             return CommandResult.deleted(removed);
 
-        } else if (!input.equals("bye")) {
-            throw new YangException("Invalid command: " + input);
+        } else if (input.startsWith("find")) {
+            String keyword = input.substring(4).trim();
+            if (keyword.isEmpty()) {
+                throw new YangException("☹ OOPS!!! The keyword for find cannot be empty.");
+            }
+            return CommandResult.find(keyword);
         }
+          else if (!input.equals("bye")) {
+            throw new YangException("Invalid command: " + input);
 
+        }
         return CommandResult.none();
     }
 
