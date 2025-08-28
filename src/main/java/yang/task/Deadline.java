@@ -3,7 +3,6 @@ package yang.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
 public final class Deadline extends Task {
     private final LocalDate by;
     private static final DateTimeFormatter OUT = DateTimeFormatter.ofPattern("MMM d yyyy");

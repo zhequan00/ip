@@ -73,9 +73,8 @@ public class Parser {
                 throw new YangException("☹ OOPS!!! The keyword for find cannot be empty.");
             }
             return CommandResult.find(keyword);
-        }
-          else if (!input.equals("bye")) {
-            throw new YangException("Invalid command: " + input);
+        } else if (!input.equals("bye")) {
+            throw new YangException("Not a valid command: " + input);
 
         }
         return CommandResult.none();

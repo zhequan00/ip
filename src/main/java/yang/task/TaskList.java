@@ -9,6 +9,7 @@ public class TaskList {
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
+
     public TaskList(List<Task> initial) {
         this.tasks = new ArrayList<>(initial);
     }
@@ -24,6 +25,7 @@ public class TaskList {
     public void add(Task t) {
         tasks.add(t);
     }
+
     public Task remove(int idx) {
         return tasks.remove(idx);
     }

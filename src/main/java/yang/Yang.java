@@ -14,45 +14,50 @@ public class Yang {
     private final Ui ui = new Ui();
     private TaskList tasks = new TaskList();
 
-/**
- * Starts the interactive loop (REPL) for the Yang bot.
- * <ul>
- *   <li>Attempts to load previously saved tasks from {@link Storage}.</li>
- */
+    /**
+     * Starts the interactive loop (REPL) for the Yang bot.
+     * <ul>
+     *   <li>Attempts to load previously saved tasks from {@link Storage}.</li>
+     */
     public void run() {
         try {
             tasks = new TaskList(storage.load());
-        } catch (Exception ignored) {}
+        } catch (Exception ignored) {
+        }
         ui.greet();
 
         while (true) {
             String cmd = ui.readCommand();
-            if (cmd.equals("bye")) { ui.bye(); break; }
+            if (cmd.equals("bye")) {
+                ui.bye();
+                break;
+            }
 
             try {
                 var result = Parser.apply(cmd, tasks);
 
                 switch (result.type) {
-                    case ADDED -> ui.showAdded(result.task, tasks.size());
-                    case DELETED -> ui.showDeleted(result.task, tasks.size());
-                    case LIST -> ui.showList(tasks);
-                    case MARKED -> ui.showMarked(result.task);
-                    case UNMARKED -> ui.showUnmarked(result.task);
-                    case FIND -> ui.showFound(tasks, result.keyword);
+                case ADDED -> ui.showAdded(result.task, tasks.size());
+                case DELETED -> ui.showDeleted(result.task, tasks.size());
+                case LIST -> ui.showList(tasks);
+                case MARKED -> ui.showMarked(result.task);
+                case UNMARKED -> ui.showUnmarked(result.task);
+                case FIND -> ui.showFound(tasks, result.keyword);
 
-                default -> {}
+                default -> {
                 }
-
+                }
                 storage.save(tasks.asList());
             } catch (YangException e) {
                 ui.show(e.getMessage());
-            } catch (Exception ignored) { }
+            } catch (Exception ignored) {
+            }
         }
     }
 
-/**
- * Program entry point. Creates and runs a {@link Yang} instance.
- */
+    /**
+     * Program entry point. Creates and runs a {@link Yang} instance.
+     */
     public static void main(String[] args) {
         new Yang().run();
     }

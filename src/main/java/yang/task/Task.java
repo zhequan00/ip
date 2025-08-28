@@ -29,6 +29,7 @@ public abstract class Task {
     public void markDone() {
         this.isDone = true;
     }
+
     public void markUndone() {
         this.isDone = false;
     }
@@ -62,10 +63,14 @@ public abstract class Task {
         String desc = p[2];
 
         switch (p[0]) {
-            case "T": return new Todo(desc, done);
-            case "D": return (p.length >= 4) ? new Deadline(desc, java.time.LocalDate.parse(p[3]), done) : null;
-            case "E": return (p.length >= 4) ? new Event(desc, java.time.LocalDate.parse(p[3]), done) : null;
-            default:  return null;
+        case "T":
+            return new Todo(desc, done);
+        case "D":
+            return (p.length >= 4) ? new Deadline(desc, java.time.LocalDate.parse(p[3]), done) : null;
+        case "E":
+            return (p.length >= 4) ? new Event(desc, java.time.LocalDate.parse(p[3]), done) : null;
+        default:
+            return null;
         }
     }
 }
