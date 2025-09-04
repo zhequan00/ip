@@ -3,7 +3,9 @@ package yang.parser;
 import yang.task.Task;
 
 public class CommandResult {
-    public enum Type {NONE, ADDED, DELETED, LIST, MARKED, UNMARKED, FIND}
+    public enum Type {
+        NONE, ADDED, DELETED, LIST, MARKED, UNMARKED, FIND
+    }
 
     public final Type type;
     public final Task task;
