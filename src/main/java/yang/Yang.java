@@ -55,6 +55,10 @@ public class Yang {
         }
     }
 
+    public String getResponse(String input) {
+        return "Yang heard: " + input;
+    }
+
     /**
      * Program entry point. Creates and runs a {@link Yang} instance.
      */
