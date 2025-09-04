@@ -1,25 +1,50 @@
 package yang.ui;
 
+import java.io.IOException;
+import java.util.Collections;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 public class DialogBox extends HBox {
+    @FXML private Label text;
+    @FXML private ImageView displayPicture;
 
-    private final Label text;
-    private final ImageView displayPicture;
+    private DialogBox(String msg, Image img) {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
+            loader.setController(this);
+            loader.setRoot(this);
+            loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        text.setText(msg);
+        displayPicture.setImage(img);
+    }
 
-    public DialogBox(String s, Image i) {
-        text = new Label(s);
-        displayPicture = new ImageView(i);
+    private void flip() {
+        ObservableList<Node> kids = FXCollections.observableArrayList(getChildren());
+        Collections.reverse(kids);
+        getChildren().setAll(kids);
+        setAlignment(Pos.TOP_LEFT);
+    }
 
-        text.setWrapText(true);
-        displayPicture.setFitWidth(100.0);
-        displayPicture.setFitHeight(100.0);
-        this.setAlignment(Pos.TOP_RIGHT);
+    public static DialogBox getUserDialog(String s, Image i) {
+        return new DialogBox(s, i);
+    }
 
-        this.getChildren().addAll(text, displayPicture);
+    public static DialogBox getYangDialog(String s, Image i) {
+        var db = new DialogBox(s, i);
+        db.flip();
+        return db;
     }
 }
