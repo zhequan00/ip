@@ -44,10 +44,6 @@ public class CommandResult {
         this(type, task, null);
     }
 
-    public static CommandResult none() {
-        return new CommandResult(Type.NONE, null);
-    }
-
     public static CommandResult list() {
         return new CommandResult(Type.LIST, null);
     }
@@ -66,9 +62,5 @@ public class CommandResult {
 
     public static CommandResult unmarked(Task t) {
         return new CommandResult(Type.UNMARKED, t);
-    }
-
-    public static CommandResult find(String keyword) {
-        return new CommandResult(Type.FIND, null, keyword);
     }
 }

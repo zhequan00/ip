@@ -3,6 +3,8 @@ package yang.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import yang.YangException;
+
 public class TaskList {
     private final List<Task> tasks;
 
@@ -22,7 +24,11 @@ public class TaskList {
         return tasks.get(idx);
     }
 
-    public void add(Task t) {
+    public void add(Task t) throws YangException {
+        boolean dup = tasks.stream().anyMatch(x -> x.sameIdentity(t));
+        if (dup) {
+            throw new YangException("☹ OOPS!!! Duplicate task:\n  " + t);
+        }
         tasks.add(t);
     }
 
