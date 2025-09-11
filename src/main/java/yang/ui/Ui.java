@@ -5,6 +5,13 @@ import java.util.Scanner;
 import yang.task.Task;
 import yang.task.TaskList;
 
+/**
+ * Handles all console input/output for the Yang chatbot.
+ * <p>
+ * This class is intentionally lightweight and side-effectful:
+ * it reads user commands from {@link System#in} and prints messages to {@link System#out}.
+ * </p>
+ */
 public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
@@ -20,10 +27,10 @@ public class Ui {
     }
 
     /**
-     * Print when tasks have been added
+     * Prints a confirmation after a task has been added.
      *
-     * @param t
-     * @param count
+     * @param t     the task that was added
+     * @param count the total number of tasks after the addition
      */
     public void showAdded(Task t, int count) {
         System.out.println("Perfect! I've added this task:\n  " + t);
@@ -31,20 +38,22 @@ public class Ui {
     }
 
     /**
-     * Print the list of tasks
+     * Prints the current list of tasks.
      *
-     * @param tl
+     * @param tl the task list to display
      */
     public void showList(TaskList tl) {
         System.out.println("Here are the tasks in your list:");
-        for (int i = 0; i < tl.size(); i++) System.out.println((i + 1) + ". " + tl.get(i));
+        for (int i = 0; i < tl.size(); i++) {
+            System.out.println((i + 1) + ". " + tl.get(i));
+        }
     }
 
     /**
-     * Print when a task have been deleted
+     * Prints a confirmation after a task has been deleted.
      *
-     * @param t
-     * @param count
+     * @param t     the task that was deleted
+     * @param count the total number of tasks after the deletion
      */
     public void showDeleted(Task t, int count) {
         System.out.println("Understood. I've removed this task:\n  " + t);
@@ -52,9 +61,9 @@ public class Ui {
     }
 
     /**
-     * Print then a task has been marked
+     * Prints a confirmation after a task has been marked as done.
      *
-     * @param t
+     * @param t the task that was marked as done
      */
     public void showMarked(Task t) {
         System.out.println("Okay! I've marked this task as done:");
@@ -62,9 +71,9 @@ public class Ui {
     }
 
     /**
-     * Print when a task has been unmarked
+     * Prints a confirmation after a task has been marked as not done.
      *
-     * @param t
+     * @param t the task that was unmarked
      */
     public void showUnmarked(Task t) {
         System.out.println("Will do, I've marked this task as not done yet:");
@@ -72,10 +81,10 @@ public class Ui {
     }
 
     /**
-     * Finds keyword and print if there are matching tasks
+     * Prints tasks that contain a given keyword in their string representation.
      *
-     * @param tl
-     * @param keyword
+     * @param tl      the task list to search
+     * @param keyword the substring to match against each task
      */
     public void showFound(TaskList tl, String keyword) {
         System.out.println("I have listed the matching tasks:");

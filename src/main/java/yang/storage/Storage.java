@@ -1,14 +1,15 @@
 package yang.storage;
 
-import yang.task.Task;
-
 import java.io.IOException;
-
 import java.nio.charset.StandardCharsets;
-import java.nio.file.*;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+
+import yang.task.Task;
 
 public final class Storage {
     private final Path file;
@@ -34,7 +35,9 @@ public final class Storage {
             String s = ln.trim();
             if (!s.isEmpty()) {
                 Task t = Task.fromStorage(s);
-                if (t != null) out.add(t);
+                if (t != null) {
+                    out.add(t);
+                }
             }
         }
         return out;
@@ -43,7 +46,9 @@ public final class Storage {
     public void save(List<Task> tasks) throws IOException {
         Files.createDirectories(file.getParent());
         List<String> lines = new ArrayList<>(tasks.size());
-        for (Task t : tasks) lines.add(t.toStorage());
+        for (Task t : tasks) {
+            lines.add(t.toStorage());
+        }
         Files.write(file, lines, StandardCharsets.UTF_8,
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     }
