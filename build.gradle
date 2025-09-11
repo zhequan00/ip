@@ -39,6 +39,7 @@ test {
         showCauses true
         showStackTraces true
         showStandardStreams = false
+        jvmArgs '-ea'
     }
 }
 
@@ -53,4 +54,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    jvmArgs '-ea'
 }
