@@ -28,7 +28,11 @@ public class Yang {
                 ui.bye();
                 break;
             }
-            process(input);
+            try {
+                process(input);
+            } catch (IllegalArgumentException e) {
+                ui.show(e.getMessage());
+            }
         }
     }
 
@@ -59,7 +63,6 @@ public class Yang {
         } catch (YangException e) {
             ui.show(e.getMessage());
         } catch (Exception ignored) {
-
         }
     }
 

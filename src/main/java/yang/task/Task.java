@@ -50,6 +50,24 @@ public abstract class Task {
         return isDone;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Task)) {
+            return false;
+        }
+        Task other = (Task) o;
+        return this.getClass().equals(other.getClass())
+                && this.description.equalsIgnoreCase(other.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return (getClass().getSimpleName() + description.toLowerCase()).hashCode();
+    }
+
     /**
      * Serializes this task to a compact pipe-delimited line suitable for storage.
      * <p>Example formats:</p>
@@ -62,6 +80,16 @@ public abstract class Task {
      * @return a single-line string representation for persistence
      */
     public abstract String toStorage();
+
+    /**
+     * Returns true if this task and {@code other} represent the same logical task.
+     * Default implementation compares type and normalized description.
+     */
+    public boolean sameIdentity(Task other) {
+        return other != null
+                && this.getClass().equals(other.getClass())
+                && this.description.trim().equalsIgnoreCase(other.description.trim());
+    }
 
     /**
      * Reconstructs a {@link Task} from a storage line.

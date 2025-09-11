@@ -34,6 +34,19 @@ public final class Event extends Task {
     }
 
     @Override
+    public boolean sameIdentity(Task other) {
+        if (!(other instanceof Event e)) {
+            return false;
+        }
+        return this.description.trim().equalsIgnoreCase(e.description.trim())
+                && this.at.equals(e.getAt());
+    }
+
+    public LocalDate getAt() {
+        return at;
+    }
+
+    @Override
     public String toString() {
         return "[E][" + (isDone ? "X" : " ") + "] " + description + " (at: " + at.format(OUT) + ")";
     }

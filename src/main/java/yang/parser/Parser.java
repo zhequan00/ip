@@ -21,13 +21,41 @@ import yang.task.Todo;
  */
 public class Parser {
 
+    /**
+     * Parses a raw user input string and executes the corresponding command
+     * on the provided {@link TaskList}.
+     * <p>
+     * Recognized commands include:
+     * <ul>
+     *   <li><b>list</b> – show all tasks in the list</li>
+     *   <li><b>todo &lt;description&gt;</b> – add a new {@link yang.task.Todo}</li>
+     *   <li><b>deadline &lt;description&gt; /by &lt;yyyy-mm-dd&gt;</b> – add a new {@link yang.task.Deadline}</li>
+     *   <li><b>event &lt;description&gt; /at &lt;yyyy-mm-dd&gt;</b> – add a new {@link yang.task.Event}</li>
+     *   <li><b>mark &lt;index&gt;</b> – mark a task as done</li>
+     *   <li><b>unmark &lt;index&gt;</b> – mark a task as not done</li>
+     *   <li><b>delete &lt;index&gt;</b> – remove a task from the list</li>
+     * </ul>
+     * If the command is not recognized or its arguments are malformed,
+     * a {@link YangException} is thrown.
+     *
+     * @param input the raw user command string
+     * @param tasks the current task list to operate on
+     * @return a {@link CommandResult} describing the outcome of the command
+     * @throws YangException if the input is invalid, incomplete, or refers to
+     *                       a non-existent task index
+     */
     public static CommandResult apply(String input, TaskList tasks) throws YangException {
+        String raw = input;
         input = input.trim();
+
         if (input.equals("list")) {
             return CommandResult.list();
 
         } else if (input.startsWith("todo")) {
-            String desc = requireNonEmpty(input.substring(4), "☹ Ohno!! The description of a todo cannot be empty.");
+            String desc = requireNonEmpty(
+                    input.substring(4),
+                    "☹ Ohno!! The description of a todo cannot be empty."
+            );
             Task t = new Todo(desc);
             tasks.add(t);
             return CommandResult.added(t);
@@ -37,10 +65,14 @@ public class Parser {
             if (p.length < 2) {
                 throw new YangException("Usage: deadline <desc> /by <yyyy-mm-dd>");
             }
-
-            String desc = requireNonEmpty(p[0], "☹ Ohno!! The description of a deadline cannot be empty.");
-            String dateStr = requireNonEmpty(p[1], "☹ Ohno!!! Deadline date is missing (use yyyy-mm-dd).");
-
+            String desc = requireNonEmpty(
+                    p[0],
+                    "☹ Ohno!! The description of a deadline cannot be empty."
+            );
+            String dateStr = requireNonEmpty(
+                    p[1],
+                    "☹ Ohno!!! Deadline date is missing (use yyyy-mm-dd)."
+            );
             LocalDate by = parseIsoDate(dateStr);
             Task t = new Deadline(desc, by);
             tasks.add(t);
@@ -51,10 +83,14 @@ public class Parser {
             if (p.length < 2) {
                 throw new YangException("Usage: event <desc> /at <yyyy-mm-dd>");
             }
-
-            String desc = requireNonEmpty(p[0], "☹ Ohno!!! The description of an event cannot be empty.");
-            String dateStr = requireNonEmpty(p[1], "☹ Ohno!!! Event date is missing (use yyyy-mm-dd).");
-
+            String desc = requireNonEmpty(
+                    p[0],
+                    "☹ Ohno!!! The description of an event cannot be empty."
+            );
+            String dateStr = requireNonEmpty(
+                    p[1],
+                    "☹ Ohno!!! Event date is missing (use yyyy-mm-dd)."
+            );
             LocalDate at = parseIsoDate(dateStr);
             Task t = new Event(desc, at);
             tasks.add(t);
@@ -75,17 +111,9 @@ public class Parser {
             Task removed = tasks.remove(idx);
             return CommandResult.deleted(removed);
 
-        } else if (input.startsWith("find")) {
-            String keyword = input.substring(4).trim();
-            if (keyword.isEmpty()) {
-                throw new YangException("☹ OOPS!!! The keyword for find cannot be empty.");
-            }
-            return CommandResult.find(keyword);
-        } else if (!input.equals("bye")) {
-            throw new YangException("Not a valid command: " + input);
-
+        } else {
+            throw new YangException("Not a valid command: " + raw);
         }
-        return CommandResult.none();
     }
 
     private static String requireNonEmpty(String s, String msg) throws YangException {

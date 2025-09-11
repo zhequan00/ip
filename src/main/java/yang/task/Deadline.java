@@ -39,6 +39,19 @@ public final class Deadline extends Task {
     }
 
     @Override
+    public boolean sameIdentity(Task other) {
+        if (!(other instanceof Deadline d)) {
+            return false;
+        }
+        return this.description.trim().equalsIgnoreCase(d.description.trim())
+                && this.by.equals(d.getBy());
+    }
+
+    public LocalDate getBy() {
+        return by;
+    }
+
+    @Override
     public String toString() {
         return "[D][" + (isDone ? "X" : " ") + "] " + description
                 + " (by: " + by.format(OUT_FORMAT) + ")";

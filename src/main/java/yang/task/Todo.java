@@ -18,4 +18,12 @@ public final class Todo extends Task {
     public String toStorage() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
+
+    @Override
+    public boolean sameIdentity(Task other) {
+        if (!(other instanceof Todo t)) {
+            return false;
+        }
+        return this.description.trim().equalsIgnoreCase(t.description.trim());
+    }
 }
