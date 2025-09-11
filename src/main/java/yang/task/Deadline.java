@@ -3,14 +3,23 @@ package yang.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a deadline.
+ * A {@code Deadline} has a description and a due date.
+ */
 public final class Deadline extends Task {
+
     private final LocalDate by;
-    private static final DateTimeFormatter OUT = DateTimeFormatter.ofPattern("MMM d yyyy");
+
+    /** Formatter for displaying dates in user-friendly form. */
+    private final DateTimeFormatter OUT_FORMAT =
+            DateTimeFormatter.ofPattern("MMM d yyyy");
 
     /**
+     * Constructs a {@code Deadline} that is initially not done.
      *
-     * @param description
-     * @param by
+     * @param description text describing the task
+     * @param by          due date of the task
      */
     public Deadline(String description, LocalDate by) {
         super(description, false);
@@ -18,10 +27,11 @@ public final class Deadline extends Task {
     }
 
     /**
+     * Constructs a {@code Deadline} with an explicit done state.
      *
-     * @param description
-     * @param by
-     * @param isDone
+     * @param description text describing the task
+     * @param by          due date of the task
+     * @param isDone      whether the task is already completed
      */
     public Deadline(String description, LocalDate by, boolean isDone) {
         super(description, isDone);
@@ -30,11 +40,13 @@ public final class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D][" + (isDone ? "X" : " ") + "] " + description + " (by: " + by.format(OUT) + ")";
+        return "[D][" + (isDone ? "X" : " ") + "] " + description
+                + " (by: " + by.format(OUT_FORMAT) + ")";
     }
 
     @Override
     public String toStorage() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return "D | " + (isDone ? "1" : "0") + " | "
+                + description + " | " + by;
     }
 }

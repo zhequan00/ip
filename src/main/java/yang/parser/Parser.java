@@ -1,10 +1,14 @@
 package yang.parser;
 
-import yang.YangException;
-import yang.task.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+
+import yang.YangException;
+import yang.task.Deadline;
+import yang.task.Event;
+import yang.task.Task;
+import yang.task.TaskList;
+import yang.task.Todo;
 
 /**
  * Parses raw user input strings into executable commands.
@@ -30,7 +34,9 @@ public class Parser {
 
         } else if (input.startsWith("deadline")) {
             String[] p = input.substring(8).trim().split("/by", 2);
-            if (p.length < 2) throw new YangException("Usage: deadline <desc> /by <yyyy-mm-dd>");
+            if (p.length < 2) {
+                throw new YangException("Usage: deadline <desc> /by <yyyy-mm-dd>");
+            }
 
             String desc = requireNonEmpty(p[0], "☹ Ohno!! The description of a deadline cannot be empty.");
             String dateStr = requireNonEmpty(p[1], "☹ Ohno!!! Deadline date is missing (use yyyy-mm-dd).");
@@ -42,7 +48,9 @@ public class Parser {
 
         } else if (input.startsWith("event")) {
             String[] p = input.substring(5).trim().split("/at", 2);
-            if (p.length < 2) throw new YangException("Usage: event <desc> /at <yyyy-mm-dd>");
+            if (p.length < 2) {
+                throw new YangException("Usage: event <desc> /at <yyyy-mm-dd>");
+            }
 
             String desc = requireNonEmpty(p[0], "☹ Ohno!!! The description of an event cannot be empty.");
             String dateStr = requireNonEmpty(p[1], "☹ Ohno!!! Event date is missing (use yyyy-mm-dd).");
@@ -81,7 +89,9 @@ public class Parser {
     }
 
     private static String requireNonEmpty(String s, String msg) throws YangException {
-        if (s == null || s.trim().isEmpty()) throw new YangException(msg);
+        if (s == null || s.trim().isEmpty()) {
+            throw new YangException(msg);
+        }
         return s.trim();
     }
 
@@ -95,10 +105,14 @@ public class Parser {
 
     private static int parseIndex(String input, int size) throws YangException {
         String[] parts = input.split("\\s+");
-        if (parts.length < 2) throw new YangException("☹ OOPS!!! Please provide an item number.");
+        if (parts.length < 2) {
+            throw new YangException("☹ OOPS!!! Please provide an item number.");
+        }
         try {
             int idx = Integer.parseInt(parts[1]) - 1;
-            if (idx < 0 || idx >= size) throw new YangException("☹ OOPS!!! That task number is out of range.");
+            if (idx < 0 || idx >= size) {
+                throw new YangException("☹ OOPS!!! That task number is out of range.");
+            }
             return idx;
         } catch (NumberFormatException e) {
             throw new YangException("☹ OOPS!!! Task number must be an integer.");
