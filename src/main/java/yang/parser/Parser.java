@@ -18,7 +18,7 @@ import java.time.format.DateTimeParseException;
 public class Parser {
 
     public static CommandResult apply(String input, TaskList tasks) throws YangException {
-        assert input != null : "input must not be null";
+        assert input != null : "input cannot be null";
         assert input != null : "tasks list must be initialised";
         input = input.trim();
         if (input.equals("list")) {
