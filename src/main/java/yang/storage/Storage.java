@@ -22,7 +22,7 @@ public final class Storage {
     }
 
     public List<Task> load() throws IOException {
-        assert file != null : "storage path must be set";
+        assert file != null : "storage path can only be set";
         if (Files.notExists(file)) {
             Files.createDirectories(file.getParent());
             Files.createFile(file);
