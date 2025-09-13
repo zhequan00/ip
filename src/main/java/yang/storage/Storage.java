@@ -23,6 +23,7 @@ public final class Storage {
     }
 
     public List<Task> load() throws IOException {
+        assert file != null : "storage path must be set";
         if (Files.notExists(file)) {
             Files.createDirectories(file.getParent());
             Files.createFile(file);
@@ -44,6 +45,7 @@ public final class Storage {
     }
 
     public void save(List<Task> tasks) throws IOException {
+        assert tasks != null : "tasks to save must not be null";
         Files.createDirectories(file.getParent());
         List<String> lines = new ArrayList<>(tasks.size());
         for (Task t : tasks) {

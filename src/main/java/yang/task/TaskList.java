@@ -21,6 +21,7 @@ public class TaskList {
     }
 
     public Task get(int idx) {
+        assert idx >= 0 && idx < tasks.size() : "index out of bounds";
         return tasks.get(idx);
     }
 
@@ -37,10 +38,12 @@ public class TaskList {
     }
 
     public void mark(int idx) {
+        assert idx >= 0 && idx < tasks.size() : "index out of bounds";
         tasks.get(idx).markDone();
     }
 
     public void unmark(int idx) {
+        assert idx >= 0 && idx < tasks.size() : "index out of bounds";
         tasks.get(idx).markUndone();
     }
 

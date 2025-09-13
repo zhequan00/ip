@@ -45,7 +45,12 @@ public class Parser {
      *                       a non-existent task index
      */
     public static CommandResult apply(String input, TaskList tasks) throws YangException {
+<<<<<<< HEAD
         String raw = input;
+=======
+        assert input != null : "input cannot be null";
+        assert input != null : "tasks list must be initialised";
+>>>>>>> branch-A-Assertions
         input = input.trim();
 
         if (input.equals("list")) {
