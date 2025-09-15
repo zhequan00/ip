@@ -6,22 +6,21 @@ import yang.task.Task;
 import yang.task.TaskList;
 
 /**
- * Handles all console input/output for the Yang chatbot.
- * <p>
- * This class is intentionally lightweight and side-effectful:
- * it reads user commands from {@link System#in} and prints messages to {@link System#out}.
- * </p>
+ * Handles user interactions by printing messages to the console
+ * and reading user input.
  */
 public class Ui {
     private final Scanner sc = new Scanner(System.in);
 
-    /**
-     * Generate greeting upon starting the bot
-     */
     public void greet() {
         System.out.println("Good day! I'm Yang your favourite bot assistant\nWhat can I do for you?");
     }
 
+    /**
+     * Reads the next command from user input.
+     *
+     * @return the trimmed command string
+     */
     public String readCommand() {
         return sc.nextLine().trim();
     }
@@ -96,6 +95,11 @@ public class Ui {
         }
     }
 
+    /**
+     * Prints the given message.
+     *
+     * @param s the message to print
+     */
     public void show(String s) {
         System.out.println(s);
     }

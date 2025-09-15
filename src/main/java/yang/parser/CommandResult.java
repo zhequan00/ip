@@ -27,13 +27,6 @@ public class CommandResult {
     /** The keyword used for a {@code FIND} result; {@code null} otherwise. */
     public final String keyword;
 
-    /**
-     * Constructor for {@code CommandResult}.
-     *
-     * @param type    the result type (e.g., {@link Type#ADDED}, {@link Type#LIST})
-     * @param task    the task associated with the result, or {@code null} if not applicable
-     * @param keyword the keyword for {@link Type#FIND} results, or {@code null} otherwise
-     */
     private CommandResult(Type type, Task task, String keyword) {
         this.type = type;
         this.task = task;
@@ -44,22 +37,51 @@ public class CommandResult {
         this(type, task, null);
     }
 
+    /**
+     * Creates a result representing the list command.
+     *
+     * @return a list command result
+     */
     public static CommandResult list() {
         return new CommandResult(Type.LIST, null);
     }
 
+    /**
+     * Creates a result representing a newly added task.
+     *
+     * @param t the task that was added
+     * @return an add command result
+     */
     public static CommandResult added(Task t) {
         return new CommandResult(Type.ADDED, t);
     }
 
+    /**
+     * Creates a result representing a deleted task.
+     *
+     * @param t the task that was deleted
+     * @return a delete command result
+     */
     public static CommandResult deleted(Task t) {
         return new CommandResult(Type.DELETED, t);
     }
 
+    /**
+     * Creates a result representing a task marked as done.
+     *
+     * @param t the task that was marked
+     * @return a mark command result
+     */
     public static CommandResult marked(Task t) {
         return new CommandResult(Type.MARKED, t);
     }
 
+    /**
+     * Creates a result representing a task marked as not done.
+     *
+     * @param t the task that was unmarked
+     * @return an unmark command result
+     */
     public static CommandResult unmarked(Task t) {
         return new CommandResult(Type.UNMARKED, t);
     }

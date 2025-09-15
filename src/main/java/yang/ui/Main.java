@@ -8,6 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Entry point for the Yang JavaFX application.
+ * <p>
+ * This class loads the main window layout from FXML, sets up the controller,
+ * and configures the primary stage.
+ */
 public class Main extends Application {
     private final yang.Yang yang = new yang.Yang();
 

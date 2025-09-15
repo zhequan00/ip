@@ -11,17 +11,37 @@ import java.util.List;
 
 import yang.task.Task;
 
+/**
+ * Handles loading and saving tasks to a file on disk.
+ */
 public final class Storage {
     private final Path file;
 
+    /**
+     * Creates a storage object for the given file path.
+     *
+     * @param file the file path to store tasks
+     */
     public Storage(Path file) {
         this.file = file;
     }
 
+    /**
+     * Creates a storage object with the default path {@code data/yang.txt}.
+     *
+     * @return a storage object pointing to the default path
+     */
     public static Storage defaultStorage() {
         return new Storage(Paths.get("data", "yang.txt"));
     }
 
+    /**
+     * Loads tasks from the backing file.
+     * Creates the file if it does not exist.
+     *
+     * @return list of tasks loaded from storage
+     * @throws IOException if an I/O error occurs
+     */
     public List<Task> load() throws IOException {
         assert file != null : "storage path can only be set";
         if (Files.notExists(file)) {
@@ -44,6 +64,12 @@ public final class Storage {
         return out;
     }
 
+    /**
+     * Saves the given tasks to the backing file.
+     *
+     * @param tasks list of tasks to save
+     * @throws IOException if an I/O error occurs
+     */
     public void save(List<Task> tasks) throws IOException {
         assert tasks != null : "tasks to save must not be null";
         Files.createDirectories(file.getParent());

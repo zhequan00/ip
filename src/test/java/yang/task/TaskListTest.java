@@ -4,10 +4,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import yang.YangException;
+
+/**
+ * Tests the {@link TaskList} class.
+ */
 public class TaskListTest {
 
     @Test
-    void markAndUnmark_toggleDoneFlag() {
+    void markAndUnmark_toggleDoneFlag() throws YangException {
         TaskList tl = new TaskList();
         Todo t = new Todo("read book");
         tl.add(t);
@@ -20,7 +25,7 @@ public class TaskListTest {
     }
 
     @Test
-    void addAndRemove_updatesSizeAndReturnsRemovedTask() {
+    void addAndRemove_updatesSizeAndReturnsRemovedTask() throws YangException {
         TaskList tl = new TaskList();
         tl.add(new Todo("a"));
         tl.add(new Todo("b"));

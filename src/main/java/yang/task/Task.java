@@ -3,12 +3,9 @@ package yang.task;
 import java.time.LocalDate;
 
 /**
- * Base abstraction for a user task with a textual description and a completion flag.
- * <p>
- * Subclasses (e.g., {@link Todo}, {@link Deadline}, {@link Event}) provide concrete
- * storage formats and rendering. Each task supports being marked done/undone and
- * serialized/deserialized to a compact pipe-delimited format for persistence.
- * </p>
+ * Represents an abstract task with a description and completion state.
+ * Subclasses provide task types such as {@link Todo},
+ * {@link Deadline}, and {@link Event}.
  */
 public abstract class Task {
 
@@ -69,15 +66,9 @@ public abstract class Task {
     }
 
     /**
-     * Serializes this task to a compact pipe-delimited line suitable for storage.
-     * <p>Example formats:</p>
-     * <ul>
-     *   <li>{@code T|0|buy milk}</li>
-     *   <li>{@code D|1|submit report|2025-08-30}</li>
-     *   <li>{@code E|0|conference|2025-09-12}</li>
-     * </ul>
+     * Converts this task into a string suitable for saving to storage.
      *
-     * @return a single-line string representation for persistence
+     * @return serialized form of the task
      */
     public abstract String toStorage();
 

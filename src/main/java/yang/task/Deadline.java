@@ -10,8 +10,6 @@ import java.time.format.DateTimeFormatter;
 public final class Deadline extends Task {
 
     private final LocalDate by;
-
-    /** Formatter for displaying dates in user-friendly form. */
     private final DateTimeFormatter OUT_FORMAT =
             DateTimeFormatter.ofPattern("MMM d yyyy");
 

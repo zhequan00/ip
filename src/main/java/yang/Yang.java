@@ -6,7 +6,7 @@ import yang.task.TaskList;
 import yang.ui.Ui;
 
 /**
- * The Yang class represents the main entry point for the task manager bot.
+ * Represents the main entry point for the task manager bot.
  * It processes user input, manages tasks, and handles command execution.
  */
 public class Yang {

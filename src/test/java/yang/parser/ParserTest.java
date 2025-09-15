@@ -1,15 +1,20 @@
 package yang.parser;
 
-import org.junit.jupiter.api.Test;
-
-import yang.YangException;
-import yang.task.*;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
+import yang.YangException;
+import yang.task.Deadline;
+import yang.task.TaskList;
+import yang.task.Todo;
+
+/**
+ * Tests the {@link Parser} class.
+ */
 public class ParserTest {
 
     @Test
@@ -44,7 +49,7 @@ public class ParserTest {
     }
 
     @Test
-    void delete_invalidIndex_throws() {
+    void delete_invalidIndex_throws() throws YangException {
         TaskList tl = new TaskList();
         tl.add(new Todo("x"));
         assertThrows(YangException.class, () -> Parser.apply("delete 9", tl));

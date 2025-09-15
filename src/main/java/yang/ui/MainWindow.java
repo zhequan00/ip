@@ -8,6 +8,10 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller for the main window of the Yang application.
+ * Manages user input and dialog display in the GUI.
+ */
 public class MainWindow extends AnchorPane {
     @FXML private ScrollPane scrollPane;
     @FXML private VBox dialogContainer;

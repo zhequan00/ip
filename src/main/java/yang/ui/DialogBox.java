@@ -14,6 +14,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A custom control that represents a dialog box with text and an image.
+ * Used for displaying user and Yang messages in the GUI.
+ */
 public class DialogBox extends HBox {
     @FXML private Label text;
     @FXML private ImageView displayPicture;
