@@ -15,7 +15,7 @@ public class CommandResult {
      * Kinds of command outcomes that the UI can render.
      */
     public enum Type {
-        NONE, ADDED, DELETED, LIST, MARKED, UNMARKED, FIND
+        NONE, ADDED, DELETED, LIST, MARKED, UNMARKED, FOUND
     }
 
     /** The outcome type. */
@@ -84,5 +84,9 @@ public class CommandResult {
      */
     public static CommandResult unmarked(Task t) {
         return new CommandResult(Type.UNMARKED, t);
+    }
+
+    public static CommandResult found(String keyword) {
+        return new CommandResult(Type.FOUND, null, keyword);
     }
 }

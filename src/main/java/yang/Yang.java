@@ -56,7 +56,7 @@ public class Yang {
             case LIST -> ui.showList(tasks);
             case MARKED -> ui.showMarked(result.task);
             case UNMARKED -> ui.showUnmarked(result.task);
-            case FIND -> ui.showFound(tasks, result.keyword);
+            case FOUND -> ui.showFound(tasks, result.keyword);
             default -> { }
             }
             storage.save(tasks.asList());

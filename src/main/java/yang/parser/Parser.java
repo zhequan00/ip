@@ -94,11 +94,15 @@ public class Parser {
             return CommandResult.deleted(removed);
         }
 
+        case "find": {
+            String keyword = requireNonEmpty(rest, "☹ OOPS!!! The keyword for find cannot be empty.").trim();
+            return CommandResult.found(keyword);
+        }
+
         default:
             throw new YangException("Not a valid command: " + raw);
         }
     }
-
 
     private static String requireNonEmpty(String s, String msg) throws YangException {
         if (s == null || s.trim().isEmpty()) {
