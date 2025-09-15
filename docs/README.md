@@ -12,12 +12,12 @@ This guide explains how to use Yang and its key features.
 
 ### 1. Add a Todo
 Adds a simple task without date/time.  
-**Usage:** todo read book
+**Usage:** todo buy bubble tea
 
 ```
 expected output:
 Perfect! I've added this task:
-[T][ ] read book
+[T][ ] buy bubble tea
 Now you have 1 tasks in the list.
 ```
 
@@ -28,14 +28,13 @@ Adds a task with a deadline date.
 ```
 expected output:
 Perfect! I've added this task:
-[D][ ] return book (by: Dec 2 2019)
+[D][ ] return book (by: Sep 20 2025)
 Now you have 2 tasks in the list.
 ```
 
 ### 3. Add an Event
 Adds a task that occurs on a specific date.  
 **Usage:** event project meeting /at 2025-12-05
-
 ```
 expected output:
 Perfect! I've added this task:
@@ -50,8 +49,8 @@ Shows all tasks in your list.
 ```
 expected output:
 Here are the tasks in your list:
-1. [T][ ] read book
-2. [D][ ] return book (by: Dec 2 2019)
+1. [T][ ] buy bubble tea
+2. [D][ ] return book (by: Sep 20 2025)
 3. [E][ ] project meeting (at: Dec 5 2025)
 ```
 
@@ -61,13 +60,13 @@ Marks a task as done or not done.
 unmark 1
 ```
 expected output: 
-Okay! I've marked this task as done:
-  [T][X] read book
+YAY! Task completed. You are doing a wonderful job!!
+  [T][X] buy bubble tea
 ```
 ```
 expected output: 
-Will do, I've marked this task as not done yet:
-  [T][ ] read book
+Understood, this task is not done yet:
+  [T][ ] buy bubble tea
 ```
 
 ### 6. Delete a Task
@@ -76,7 +75,7 @@ Removes a task from the list.
 ```
 expected output: 
 Understood. I've removed this task:
-  [T][ ] read book
+  [T][ ] buy bubble tea
 Now you have 2 tasks in the list.
 ```
 
@@ -85,9 +84,8 @@ Search for tasks by keyword.
 **Usage:** find book
 ```
 expected output: 
-I have listed the matching tasks:
-2. [D][ ] return book (by: Dec 2 2019)
-
+Here are the matching tasks in your list:
+1. [D][ ] return book (by: Sep 20 2025)
 ```
 
 ### 8. Exit
@@ -96,10 +94,5 @@ Exit chatbot
 ```
 expected output: 
 Bye bye! Hope to see you again soon!
-
-BUILD SUCCESSFUL in 3m 6s
-3 actionable tasks: 2 executed, 1 up-to-date
-3:12:52 PM: Execution finished ':yang.Yang.main()'.
-
 ```
 

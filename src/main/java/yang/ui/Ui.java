@@ -103,9 +103,5 @@ public class Ui {
     public void show(String s) {
         System.out.println(s);
     }
-
-    public void bye() {
-        System.out.println("Bye bye! Hope to see you again soon!");
-    }
 }
 
