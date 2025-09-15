@@ -1,5 +1,6 @@
 package yang;
 
+import javafx.application.Platform;
 import yang.parser.Parser;
 import yang.storage.Storage;
 import yang.task.TaskList;
@@ -58,7 +59,7 @@ public class Yang {
             return "";
         }
         if (COMMAND_EXIT.equalsIgnoreCase(input.trim())) {
-            return "Bye bye! Hope to see you again soon!";
+            Platform.exit();
         }
 
         try {
