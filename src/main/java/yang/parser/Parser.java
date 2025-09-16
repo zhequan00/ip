@@ -30,6 +30,7 @@ public class Parser {
      * @return result of executing the parsed command
      * @throws YangException if the input is invalid or refers to an out-of-range task
      */
+    //Consulted chatgpt to improve on my existing working apply method to make it shorter
     public static CommandResult apply(String input, TaskList tasks) throws YangException {
         assert input != null : "input cannot be null";
         assert tasks != null : "tasks list must be initialised";

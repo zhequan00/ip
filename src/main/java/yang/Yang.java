@@ -18,42 +18,16 @@ public class Yang {
     private final Ui ui = new Ui();
     private TaskList tasks = new TaskList();
 
-    private void loadTasksIfAny() {
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (Exception ignored) {
-        }
-    }
-
     private boolean isExit(String input) {
         return input != null && COMMAND_EXIT.equalsIgnoreCase(input.trim());
     }
-
-    private void process(String input) {
-        try {
-            var result = Parser.apply(input, tasks);
-            switch (result.type) {
-            case ADDED -> ui.showAdded(result.task, tasks.size());
-            case DELETED -> ui.showDeleted(result.task, tasks.size());
-            case LIST -> ui.showList(tasks);
-            case MARKED -> ui.showMarked(result.task);
-            case UNMARKED -> ui.showUnmarked(result.task);
-            case FOUND -> ui.showFound(tasks, result.keyword);
-            default -> { }
-            }
-            storage.save(tasks.asList());
-        } catch (YangException e) {
-            ui.show(e.getMessage());
-        } catch (Exception ignored) {
-        }
-    }
-
     /**
      * Returns Yang's response to the given user input for the GUI.
      *
      * @param input the user command
      * @return the response message to display
      */
+    // Improved on my existing getResponse() about handling errors by consulting ChatGPT
     public String getResponse(String input) {
         if (input == null || input.isBlank()) {
             return "";

@@ -8,7 +8,7 @@ This guide explains how to use Yang and its key features.
 1. Launch the application:
     - CLI: run `java -jar yang.jar`
     - GUI: run the `Main` class in IntelliJ or `./gradlew run`
-2. Yang will greet you and wait for your commands.
+2. Yang will wait for your commands.
 
 ### 1. Add a Todo
 Adds a simple task without date/time.  
@@ -23,7 +23,7 @@ Now you have 1 tasks in the list.
 
 ### 2. Add a Deadline
 Adds a task with a deadline date.  
-**Usage:** deadline return book /by 2019-12-02
+**Usage:** deadline return book /by 2025-09-20
 
 ```
 expected output:
@@ -93,6 +93,6 @@ Exit chatbot
 **Usage:** bye
 ```
 expected output: 
-Bye bye! Hope to see you again soon!
+GUI will be closed.
 ```
 
